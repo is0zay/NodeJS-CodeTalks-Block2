@@ -5,19 +5,22 @@
 //Cons: Only can return one object at a time, can't return multiple objects
 
 //EXAMPLE
-function getPlayer(id) {
-	return new Promise((resolve, reject) => {
+function fetchData() {
+	return new Promise((resolve, reject) => {	 // asynchronous operation
 	  setTimeout(() => {
-		console.log("Fetching player data....");
-		resolve({ id: id, name: "Kobe" });
-	  }, 4000); // return promised value after 4 seconds
+		const data = "This is the data that is to be fetched";	// When promise is fulfiled resolve by sending the data
+		resolve(data);
+		
+		// reject(new Error("Failed to fetch data"));	// If there is an error, reject the promise
+	  }, 2000); // 2 second delay
 	});
   }
   
-  getArticle("1").then(res=> console.log(res));
-
-  getArticles(10)
-  .then((user) => getUserName(user.name))
-  .then((place) => getAddress(place.city))
-  .then((data) => console.log("Data", data))
-  .catch((err) => console.log("Error: ", err.message));
+  // Consuming the promise
+  fetchData()
+	.then((data) => {
+	  console.log("Fetched data:", data);
+	})
+	.catch((error) => {
+	  console.error("Error:", error.message);
+	});
